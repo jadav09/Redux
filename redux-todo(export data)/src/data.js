@@ -1,20 +1,20 @@
-
-export const data1 = [
+export let jadav = [
     {
         id:1,
-        name:"jadav",
-        salary:"10"
+        name:"hiii",
+        email:"lkjadsfk",
+        phone:"65198"
     },
-
     {
         id:2,
-        name:"jaydeep",
-        salary:"1020"
+        name:"asf",
+        email:"mlm,",
+        phone:"9854"
     },
-
     {
         id:3,
-        name:"ravi",
-        salary:"102030"
+        name:"jpk",
+        email:"lovgjn",
+        phone:"884894"
     }
 ]

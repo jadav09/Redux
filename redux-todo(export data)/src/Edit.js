@@ -1,68 +1,81 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { edit } from './userReduser'
 import { useNavigate, useParams } from 'react-router-dom'
-import { edituser } from './useRedu'
 
 function Edit() {
 
-  let navigate = useNavigate()
-  let {eid} = useParams()
+    let {eid} = useParams()
+    console.log(eid)
+ let nav = useNavigate()
 
-  let editInfo = useSelector(state=>state.user)
+    let editdata = useSelector(state=>state.acess)
 
-  let sbmt = editInfo.filter((v)=>{
-    return v.id==eid
-  }) 
+    console.log(editdata)
 
-  let {name,salary} = sbmt[0]
-
-
-  let [ename,setename] = useState(name)
-  let [esalary,setesalary] = useState(salary)
-  let dispatch = useDispatch()
-
-  let hendlesumbit =(e)=>{
-
-    e.preventDefault()
-    dispatch(edituser({id:eid,name:ename,salary:esalary}))
-    navigate("/")
-
-  }
+   let update =  editdata.filter((v)=>{
+    return v.id == eid
+       
+    })
+    console.log(update[0])
 
 
-  return (
-    <div>
-      <form className='w-25 text-start m-auto' onSubmit={hendlesumbit}>
+    let [name, setname] = useState(update[0].name)
+    let [email, setemail] = useState(update[0].email)
+    let [phone, setphone] = useState(update[0].phone)
 
-      <div className="mb-3">
-          <label className="form-label">Id</label>
-          <input type="text" className="form-control"
-          value={eid}
-          disabled
-          />
-    </div>
+    let dispatach = useDispatch()
 
-        <div className="mb-3">
-          <label className="form-label">Name</label>
-          <input type="text" className="form-control"
-          value={ename}
-          onChange={(e)=>{setename(e.target.value)}}
-          />
+    let hendlesumbit = (e) => {
+
+        e.preventDefault()
+        nav("/")
+
+        dispatach(edit({id:eid,name:name,email:email,phone:phone}))
+
+    }
+    return (
+        <div>
+            <form className='w-25 m-auto text-start' onSubmit={hendlesumbit}>
+
+                <div className="mb-3">
+                    <label className="form-label">Id</label>
+                    
+                    <input type="text" className="form-control" disabled
+                    value={eid}
+                    />
+                </div>
+
+                <div className="mb-3">
+                    <label className="form-label">Name</label>
+                    <input type="text" className="form-control"
+                        value={name}
+                        onChange={(e) => { setname(e.target.value) }}
+                    />
+                </div>
+
+                <div className="mb-3">
+                    <label className="form-label">Email</label>
+                    <input type="text" className="form-control"
+                        value={email}
+                        onChange={(e) => { setemail(e.target.value) }}
+                    />
+                </div>
+
+                <div className="mb-3">
+                    <label className="form-label">phone</label>
+                    <input type="phone" className="form-control"
+                        value={phone}
+                        onChange={(e) => { setphone(e.target.value) }}
+                    />
+                </div>
+
+
+
+                <button type="submit" className="btn btn-primary">Update</button>
+            </form>
         </div>
-
-        <div className="mb-3">
-          <label className="form-label">Salary</label>
-          <input type="text" className="form-control"
-               value={esalary}
-               onChange={(e)=>{setesalary(e.target.value)}}
-
-          />
-        </div>
-
-        <button type="submit" className="btn btn-primary">Submit</button>
-      </form>
-    </div>
-  )
+    )
 }
 
 export default Edit
